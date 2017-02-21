@@ -1,0 +1,16 @@
+{
+  "name": "smooch-dispatch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+      "start": "node index"
+  },
+  "author": "spasiu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.16.1",
+    "dotenv": "4.0.0",
+    "express": "4.14.1"
+  }
+}
