@@ -18,7 +18,9 @@ Example uses are:
 
 * Run `npm start` to start the service
 
-* Use a service like ngrok.io to expose endpoint to
+* Use a service like ngrok.io to expose endpoint for webhook events
+
+* Configure the events array at the top of the _events.js_ file.
 
 ## Deployment
 

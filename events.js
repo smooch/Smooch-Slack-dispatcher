@@ -1,6 +1,6 @@
-// Define trigger-alert pairs in `triggers`:
-// The keys can be regular expressions or strings
-const pairs = [
+// Define trigger-alert pairs in `events`:
+// The trigger value can be a regular expression or string
+const events = [
     {
         trigger: 'Hold on, I\'ll go get a human',
         alert: 'human agent alert'
@@ -44,7 +44,7 @@ exports.handler = (data, context, cb) => {
     const dispatchMessages = [];
 
     for (const attachment of data.event && data.event.attachments || []) {
-        for (const pair of pairs) {
+        for (const pair of events) {
             if (RegExp(pair.trigger).test(attachment.pretext)) {
                 dispatchMessages.push(pair.alert);
             }
