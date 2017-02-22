@@ -110,9 +110,9 @@ OAUTH ACCESS { ok: true,
 Grab the values of `access_token` and `channel_id` and add them to your .env file as ACCESS_TOKEN and DISPATCH_CHANNEL_ID. Your .env file should now look like this:
 
 ```
-VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
 CLIENT_ID="144583240868.1393840943209"
 CLIENT_SECRET="b5e0d42334b2d52c79l5os76e4f7606"
+VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
 ACCESS_TOKEN="xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9"
 DISPATCH_CHANNEL_ID="C46MX3VAQ"
 ```
@@ -122,3 +122,19 @@ Restart your server so that the environment variables are available, and start a
 ![example dispatch message](images/example-dispatch.jpg)
 
 To adjust the triggers and alerts, edit the `events` array in _events.js_.
+
+### Deploy Option 1 - deploy to Heroku:
+
+If you've never used Heroku before, or you need refresher, here's [a great guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction).
+
+Assuming you have a Heroku account and the toolbelt installed, to deploy Smooch to Heroku:
+First, create a new app, for example: `heroku create smooch-slack-dispatch`.
+
+Then set your environment variables, for example:
+`heroku config:set VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"  ACCESS_TOKEN="xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9" DISPATCH_CHANNEL_ID="C46MX3VAQ"`.
+
+Push your code to Heroku: `git push heroku master`
+
+Finally, in your Slack app settings, under event subscriptions, set a new redirect URL to your Heroku service, e.g. https://smooch-slack-dispatcher.herokuapp.com/events, and save changes.
+
+### Deploy Option 2 - deploy to AWS Lambda:
