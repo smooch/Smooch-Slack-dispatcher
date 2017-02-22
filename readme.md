@@ -62,13 +62,14 @@ Expose port 8000 for Web traffic `ngrok http 8000`, and start Smooch-Slack Dispa
 
 Navigate to https://api.slack.com/apps and create a new app.
 
-![Create a new Slack app](images/new-slack-app.png)
+
+<img alt="Create a new Slack app" src="images/new-slack-app.png" style="max-width:300px;" />
 
 Now, on your new app's dashboard, navigate down to _Event Subscriptions_ and enter your ngrok url followed by a /events route in the _Request URL_ field.
 
 Below that, hit the _Add Team Event_ button, select _message.channels_ and save changes.
 
-![Add subscription event](images/add-subscription-event.png)
+<img alt="Add subscription event" src="images/add-subscription-event.png" style="max-width:300px;" />
 
 Still in our Slack app's dashboard, navigate up to _Basic Information_ and copy all of the keys into your _.env_ file, using _.env.example_ as a guide.
 
@@ -86,7 +87,7 @@ DISPATCH_CHANNEL_ID=""
 
 Now, restart your server so that the environment variables are available, and navigate down to _Oauth & Permissions_. Here we're going to add our service URL at the /redirect route.
 
-![Redirect URL](images/oauth-redirect-url.png)
+<img alt="Redirect URL" src="images/oauth-redirect-url.png" style="max-width:300px;" />
 
 In your browser visit localhost:8000/auth to add the app to your Slack team.
 
@@ -118,6 +119,6 @@ DISPATCH_CHANNEL_ID="C46MX3VAQ"
 
 Restart your server so that the environment variables are available, and start a conversation between a user and your help desk on slack. If the user sends their email address as a message, you'll receive a notification in the dispatch channel.
 
-![example dispatch message](images/example-dispatch.png)
+<img alt="example dispatch message" src="images/example-dispatch.png" style="max-width:300px;" />
 
 To adjust the triggers and alerts, edit the `events` array in _events.js_.
