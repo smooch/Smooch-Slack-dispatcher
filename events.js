@@ -29,16 +29,15 @@ exports.handler = (data, context, cb) => {
         return cb(null, data.challenge);
     }
 
-    if (!data.event.bot_id || data.type !== 'event_callback') {
-        // API call is not an event triggered by a bot
-        return cb(null);
-    }
-
-    // respond quickly to prevent Slack retrying event delivery
-
+    // Respond quickly
     cb(null);
 
-    // check bot messages in public channels for trigger phrases,
+    if (!data.event.bot_id || data.type !== 'event_callback') {
+        // API call is not an event triggered by a bot
+        return;
+    }
+
+    // Check bot messages in public channels for trigger phrases,
     // then dispatch alerts
 
     const dispatchMessages = [];
@@ -52,14 +51,12 @@ exports.handler = (data, context, cb) => {
     }
 
     if (dispatchMessages.length === 0) {
-        return cb(null);
+        return;
     }
-
-    const text = `${dispatchMessages.join(' ')} in <#${data.event.channel}>`;
 
     https.get('https://slack.com/api/chat.postMessage?' + qs.stringify({
         token: accessToken,
         channel: dispatchChannelId,
-        text: text
+        text: `${dispatchMessages.join(' ')} in <#${data.event.channel}>`
     }));
 };
