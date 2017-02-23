@@ -94,28 +94,30 @@ Now, restart your server so that the environment variables are available, and na
 In your browser visit localhost:8000/auth to add the app to your Slack team.
 
 Once you complete the Oauth process, go visit your terminal once again. There you'll find something like this:
-    ```
-    OAUTH ACCESS { ok: true,
-      access_token: 'xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9',
-      scope: 'identify,incoming-webhook,channels:history',
-      user_id: 'U47PFALE4',
-      team_name: 'Stasi from Smooch',
-      team_id: 'S48J4QQPJ',
-      incoming_webhook:
-       { channel: '#general',
-         channel_id: 'C46MX3VAQ',
-         configuration_url: 'https://smooch-dispatch.slack.com/services/B491XPR1T',
-         url: 'https://hooks.slack.com/services/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' } }
-    ```
+
+```
+OAUTH ACCESS { ok: true,
+  access_token: 'xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9',
+  scope: 'identify,incoming-webhook,channels:history',
+  user_id: 'U47PFALE4',
+  team_name: 'Stasi from Smooch',
+  team_id: 'S48J4QQPJ',
+  incoming_webhook:
+   { channel: '#general',
+     channel_id: 'C46MX3VAQ',
+     configuration_url: 'https://smooch-dispatch.slack.com/services/B491XPR1T',
+     url: 'https://hooks.slack.com/services/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' } }
+```
 
 Grab the values of `access_token` and `channel_id` and add them to your .env file as ACCESS_TOKEN and DISPATCH_CHANNEL_ID. Your .env file should now look like this:
-    ```
-    CLIENT_ID="144583240868.1393840943209"
-    CLIENT_SECRET="b5e0d42334b2d52c79l5os76e4f7606"
-    VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
-    ACCESS_TOKEN="xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9"
-    DISPATCH_CHANNEL_ID="C46MX3VAQ"
-    ```
+
+```
+CLIENT_ID="144583240868.1393840943209"
+CLIENT_SECRET="b5e0d42334b2d52c79l5os76e4f7606"
+VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
+ACCESS_TOKEN="xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9"
+DISPATCH_CHANNEL_ID="C46MX3VAQ"
+```
 
 Restart your server so that the environment variables are available, and start a conversation between a user and your help desk on slack. If the user sends their email address as a message, you'll receive a notification in the dispatch channel. ![example dispatch message](images/example-dispatch.jpg)
 
