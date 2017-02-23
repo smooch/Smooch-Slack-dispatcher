@@ -77,13 +77,14 @@ Below that, hit the _Add Team Event_ button, select _message.channels_ and save 
 Still in our Slack app's dashboard, navigate up to _Basic Information_ and copy all of the keys into your _.env_ file, using _.env.example_ as a guide.
 
 The contents of your _.env_ file should now look something like this:
-    ```
-    VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
-    CLIENT_ID="144583240868.1393840943209"
-    CLIENT_SECRET="b5e0d42334b2d52c79l5os76e4f7606"
-    ACCESS_TOKEN=""
-    DISPATCH_CHANNEL_ID=""
-    ```
+
+```
+VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
+CLIENT_ID="144583240868.1393840943209"
+CLIENT_SECRET="b5e0d42334b2d52c79l5os76e4f7606"
+ACCESS_TOKEN=""
+DISPATCH_CHANNEL_ID=""
+```
 
 ## Step 3 - authorize the app to your Slack team
 
