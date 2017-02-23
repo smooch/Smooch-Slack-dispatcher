@@ -40,10 +40,10 @@ Smooch-Slack dispatch requires that you configure a few environment variables.
 
 | Variable                | Description |
 |-------------------------|-------------|
-| **VERIFICATION_TOKEN*`optional` | A secret token sent by slack with Webhook events to secure your event endpoint. Can be omitted for testing, but endpoint will be insecure. |
-| **ACCESS_TOKEN**`required`       | A token for calling the Slack API. |
-| **DISPATCH_CHANNEL_ID*`required` | The canonical ID for the Slack channel where dispatch messages should be sent. |
-| **CLIENT_ID**`required for setup`       | Client ID for Slack app, used in Oauth process. |
+| **VERIFICATION_TOKEN** `optional` | A secret token sent by slack with Webhook events to secure your event endpoint. Can be omitted for testing, but endpoint will be insecure. |
+| **ACCESS_TOKEN** `required`       | A token for calling the Slack API. |
+| **DISPATCH_CHANNEL_ID** `required` | The canonical ID for the Slack channel where dispatch messages should be sent. |
+| **CLIENT_ID** `required for setup`       | Client ID for Slack app, used in Oauth process. |
 | **CLIENT_SECRET**`required for setup` | Client secret for Slack app, used in Oauth process. |
 
 ---
