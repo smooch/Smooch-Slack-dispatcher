@@ -60,11 +60,15 @@ Prerequisites
 
 ### Step 2 - create and configure a Slack app:
 
-* Navigate to https://api.slack.com/apps and create a new app. ![Create a new Slack app](images/new-slack-app.jpg)
+* Navigate to https://api.slack.com/apps and create a new app.
+
+![Create a new Slack app](images/new-slack-app.jpg)
 
 * Now, on your new app's dashboard, navigate down to _Event Subscriptions_ and enter your ngrok url followed by a /events route in the _Request URL_ field.
 
-* Below that, hit the _Add Team Event_ button, select _message.channels_ and save changes. ![Add subscription event](images/add-subscription-event.jpg)
+* Below that, hit the _Add Team Event_ button, select _message.channels_ and save changes.
+
+![Add subscription event](images/add-subscription-event.jpg)
 
 * Still in our Slack app's dashboard, navigate up to _Basic Information_ and copy all of the keys into your _.env_ file, using _.env.example_ as a guide.
 
@@ -79,7 +83,9 @@ Prerequisites
 
 ### Step 3 - authorize the app to your Slack team
 
-* Now, restart your server so that the environment variables are available, and navigate down to _Oauth & Permissions_. Here we're going to add our service URL at the /redirect route. ![Redirect URL](images/oauth-redirect-url.jpg)
+* Now, restart your server so that the environment variables are available, and navigate down to _Oauth & Permissions_. Here we're going to add our service URL at the /redirect route.
+
+![Redirect URL](images/oauth-redirect-url.jpg)
 
 * In your browser visit localhost:8000/auth to add the app to your Slack team.
 
@@ -135,15 +141,21 @@ Finally, in your Slack app settings, under event subscriptions, set a new redire
 
 * If you don't already have one, get an AWS account, and then open the Lambda service from the AWS service console.
 
-* Create a new Lambda function and select _Blank Function_ as a blueprint. ![create lambda](images/)
+* Create a new Lambda function and select _Blank Function_ as a blueprint.
 
-* Don't select a trigger yet (click next if prompted to select a trigger). ![trigger configuration step](images/)
+![create lambda](images/lambda-select-blueprint.png)
+
+* Don't select a trigger yet (click next if prompted to select a trigger).
+
+![trigger configuration step](images/lambda-configure-triggers.png)
 
 * Name your function and select a Node.js runtime.
 
 * Copy/paste the contents of _events.js_ into the Lambda function code field.
 
-* Below the code field, define `ACCESS_TOKEN`, `DISPATCH_CHANNEL_ID`, and `VERIFICATION_TOKEN` as environment variables. ![environment variables](images/lambda-environment-variables.png)
+* Below the code field, define `ACCESS_TOKEN`, `DISPATCH_CHANNEL_ID`, and `VERIFICATION_TOKEN` as environment variables.
+
+![environment variables](images/lambda-environment-variables.png)
 
 * Under _Lambda function handler and role_ select _create new role from template_ in the _Role_ dropdown, and then name your new role.
 
@@ -153,13 +165,21 @@ Finally, in your Slack app settings, under event subscriptions, set a new redire
 
 * Open the API Gateway service from the AWS service console, and create a new API.
 
-* Under resources, select the `/` resource and from the actions dropdown select _create resource_. Name it whatever you like. ![create new resource](images/api-gateway-new-resource.png)
+* Under resources, select the `/` resource and from the actions dropdown select _create resource_. Name it whatever you like.
 
-* Select your new resource and then from the actions dropdown select create method. Select POST as a method, and hit the checkmark. Now select your _Lambda Region_ and _Lambda Function_, and save. ![create new method](images/api-gateway-new-method.png)
+![create new resource](images/api-gateway-new-resource.png)
 
-* From the actions dropdown select _Deploy API_, create a new stage and complete the deployment. ![deploy api](images/api-gateway-deploy.png)
+* Select your new resource and then from the actions dropdown select create method. Select POST as a method, and hit the checkmark. Now select your _Lambda Region_ and _Lambda Function_, and save.
 
-* From the menu of the far left, select _stages_ (below _resources_), select the POST method you created for and copy the _Invoke URL_. ![get invoke url](images/api-gateway-invoke-url.png)
+![create new method](images/api-gateway-new-method.png)
+
+* From the actions dropdown select _Deploy API_, create a new stage and complete the deployment.
+
+![deploy api](images/api-gateway-deploy.png)
+
+* From the menu of the far left, select _stages_ (below _resources_), select the POST method you created for and copy the _Invoke URL_.
+
+![get invoke url](images/api-gateway-invoke-url.png)
 
 #### Slack instructions
 
