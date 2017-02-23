@@ -12,17 +12,17 @@ For a step by step tutorial, including deployment, skip down to [Tutorial](#tuto
 
 ## Local setup
 
-* Clone the repository
+- Clone the repository
 
-* Run `npm i` in the smooch-slack-dispatch directory
+- Run `npm i` in the smooch-slack-dispatch directory
 
-* Create a _.env_ file and provide the required [environment variables](#environment-variables)
+- Create a _.env_ file and provide the required [environment variables](#environment-variables)
 
-* Run `npm start` to start the service
+- Run `npm start` to start the service
 
-* Use a service like ngrok.io to expose endpoint for webhook events
+- Use a service like ngrok.io to expose endpoint for webhook events
 
-* Configure the events array at the top of the _events.js_ file.
+- Configure the events array at the top of the _events.js_ file.
 
 ## Deployment
 
@@ -40,11 +40,11 @@ Smooch-Slack dispatch requires that you configure a few environment variables.
 
 | Variable                | Description |
 |-------------------------|-------------|
-| **VERIFICATION_TOKEN** `optional` | A secret token sent by slack with Webhook events to secure your event endpoint. Can be omitted for testing, but endpoint will be insecure. |
-| **ACCESS_TOKEN** `required`       | A token for calling the Slack API. |
-| **DISPATCH_CHANNEL_ID** `required` | The canonical ID for the Slack channel where dispatch messages should be sent. |
-| **CLIENT_ID** `required for setup`       | Client ID for Slack app, used in Oauth process. |
-| **CLIENT_SECRET** `required for setup` | Client secret for Slack app, used in Oauth process. |
+| **VERIFICATION_TOKEN*`optional` | A secret token sent by slack with Webhook events to secure your event endpoint. Can be omitted for testing, but endpoint will be insecure. |
+| **ACCESS_TOKEN**`required`       | A token for calling the Slack API. |
+| **DISPATCH_CHANNEL_ID*`required` | The canonical ID for the Slack channel where dispatch messages should be sent. |
+| **CLIENT_ID**`required for setup`       | Client ID for Slack app, used in Oauth process. |
+| **CLIENT_SECRET**`required for setup` | Client secret for Slack app, used in Oauth process. |
 
 ---
 
@@ -56,27 +56,27 @@ Prerequisites
 
 ## Step 1 - local set up:
 
-* Clone this repository, `npm install` dependencies, and create an empty _.env_ file.
+Clone this repository, `npm install` dependencies, and create an empty _.env_ file.
 
-* Install and run [ngrok](https://ngrok.com/), or use some other tools that can expose a local server to the Web.
+Install and run [ngrok](https://ngrok.com/), or use some other tools that can expose a local server to the Web.
 
-* Expose port 8000 for Web traffic `ngrok http 8000`, and start Smooch-Slack Dispatcher with `npm start`. You should now have a service listening on port 8000, and exposed to traffic.
+Expose port 8000 for Web traffic `ngrok http 8000`, and start Smooch-Slack Dispatcher with `npm start`. You should now have a service listening on port 8000, and exposed to traffic.
 
 ## Step 2 - create and configure a Slack app:
 
-* Navigate to https://api.slack.com/apps and create a new app.
+Navigate to https://api.slack.com/apps and create a new app.
 
 ![Create a new Slack app](images/new-slack-app.jpg)
 
-* Now, on your new app's dashboard, navigate down to _Event Subscriptions_ and enter your ngrok url followed by a /events route in the _Request URL_ field.
+Now, on your new app's dashboard, navigate down to _Event Subscriptions_ and enter your ngrok url followed by a /events route in the _Request URL_ field.
 
-* Below that, hit the _Add Team Event_ button, select _message.channels_ and save changes.
+Below that, hit the _Add Team Event_ button, select _message.channels_ and save changes.
 
 ![Add subscription event](images/add-subscription-event.jpg)
 
-* Still in our Slack app's dashboard, navigate up to _Basic Information_ and copy all of the keys into your _.env_ file, using _.env.example_ as a guide.
+Still in our Slack app's dashboard, navigate up to _Basic Information_ and copy all of the keys into your _.env_ file, using _.env.example_ as a guide.
 
-* The contents of your _.env_ file should now look something like this:
+The contents of your _.env_ file should now look something like this:
     ```
     VERIFICATION_TOKEN="HOwBOk5mRP2dVimpV&Bgv6Im9"
     CLIENT_ID="144583240868.1393840943209"
@@ -87,13 +87,13 @@ Prerequisites
 
 ## Step 3 - authorize the app to your Slack team
 
-* Now, restart your server so that the environment variables are available, and navigate down to _Oauth & Permissions_. Here we're going to add our service URL at the /redirect route.
+Now, restart your server so that the environment variables are available, and navigate down to _Oauth & Permissions_. Here we're going to add our service URL at the /redirect route.
 
 ![Redirect URL](images/oauth-redirect-url.jpg)
 
-* In your browser visit localhost:8000/auth to add the app to your Slack team.
+In your browser visit localhost:8000/auth to add the app to your Slack team.
 
-* Once you complete the Oauth process, go visit your terminal once again. There you'll find something like this:
+Once you complete the Oauth process, go visit your terminal once again. There you'll find something like this:
     ```
     OAUTH ACCESS { ok: true,
       access_token: 'xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed89becb5e9',
@@ -108,7 +108,7 @@ Prerequisites
          url: 'https://hooks.slack.com/services/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' } }
     ```
 
-* Grab the values of `access_token` and `channel_id` and add them to your .env file as ACCESS_TOKEN and DISPATCH_CHANNEL_ID. Your .env file should now look like this:
+Grab the values of `access_token` and `channel_id` and add them to your .env file as ACCESS_TOKEN and DISPATCH_CHANNEL_ID. Your .env file should now look like this:
     ```
     CLIENT_ID="144583240868.1393840943209"
     CLIENT_SECRET="b5e0d42334b2d52c79l5os76e4f7606"
@@ -117,9 +117,9 @@ Prerequisites
     DISPATCH_CHANNEL_ID="C46MX3VAQ"
     ```
 
-* Restart your server so that the environment variables are available, and start a conversation between a user and your help desk on slack. If the user sends their email address as a message, you'll receive a notification in the dispatch channel. ![example dispatch message](images/example-dispatch.jpg)
+Restart your server so that the environment variables are available, and start a conversation between a user and your help desk on slack. If the user sends their email address as a message, you'll receive a notification in the dispatch channel. ![example dispatch message](images/example-dispatch.jpg)
 
-* To adjust the triggers and alerts, edit the `events` array in _events.js_.
+To adjust the triggers and alerts, edit the `events` array in _events.js_.
 
 ## Deploy Option 1 - deploy to Heroku:
 
@@ -143,45 +143,45 @@ Finally, in your Slack app settings, under event subscriptions, set a new redire
 
 ### Lambda instructions
 
-* If you don't already have one, get an AWS account, and then open the Lambda service from the AWS service console.
+If you don't already have one, get an AWS account, and then open the Lambda service from the AWS service console.
 
-* Create a new Lambda function and select _Blank Function_ as a blueprint.
+Create a new Lambda function and select _Blank Function_ as a blueprint.
 
 ![create lambda](images/lambda-select-blueprint.png)
 
-* Don't select a trigger yet (click next if prompted to select a trigger).
+Don't select a trigger yet (click next if prompted to select a trigger).
 
 ![trigger configuration step](images/lambda-configure-triggers.png)
 
-* Name your function and select a Node.js runtime.
+Name your function and select a Node.js runtime.
 
-* Copy/paste the contents of _events.js_ into the Lambda function code field.
+Copy/paste the contents of _events.js_ into the Lambda function code field.
 
-* Below the code field, define `ACCESS_TOKEN`, `DISPATCH_CHANNEL_ID`, and `VERIFICATION_TOKEN` as environment variables.
+Below the code field, define `ACCESS_TOKEN`, `DISPATCH_CHANNEL_ID`, and `VERIFICATION_TOKEN` as environment variables.
 
 ![environment variables](images/lambda-environment-variables.png)
 
-* Under _Lambda function handler and role_ select _create new role from template_ in the _Role_ dropdown, and then name your new role.
+Under _Lambda function handler and role_ select _create new role from template_ in the _Role_ dropdown, and then name your new role.
 
-* Then click _Next_ at the bottom of the screen, and then _Create Function_.
+Then click _Next_ at the bottom of the screen, and then _Create Function_.
 
 ### API Gateway instructions
 
-* Open the API Gateway service from the AWS service console, and create a new API.
+Open the API Gateway service from the AWS service console, and create a new API.
 
-* Under resources, select the `/` resource and from the actions dropdown select _create resource_. Name it whatever you like.
+Under resources, select the `/` resource and from the actions dropdown select _create resource_. Name it whatever you like.
 
 ![create new resource](images/api-gateway-new-resource.png)
 
-* Select your new resource and then from the actions dropdown select create method. Select POST as a method, and hit the checkmark. Now select your _Lambda Region_ and _Lambda Function_, and save.
+Select your new resource and then from the actions dropdown select create method. Select POST as a method, and hit the checkmark. Now select your _Lambda Region_ and _Lambda Function_, and save.
 
 ![create new method](images/api-gateway-new-method.png)
 
-* From the actions dropdown select _Deploy API_, create a new stage and complete the deployment.
+From the actions dropdown select _Deploy API_, create a new stage and complete the deployment.
 
 ![deploy api](images/api-gateway-deploy.png)
 
-* From the menu of the far left, select _stages_ (below _resources_), select the POST method you created for and copy the _Invoke URL_.
+From the menu of the far left, select _stages_ (below _resources_), select the POST method you created for and copy the _Invoke URL_.
 
 ![get invoke url](images/api-gateway-invoke-url.png)
 
