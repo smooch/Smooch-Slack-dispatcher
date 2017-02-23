@@ -1,3 +1,5 @@
+'use strict';
+
 // Define trigger-alert pairs in `events`:
 // The trigger value can be a regular expression or string
 const events = [
@@ -21,7 +23,7 @@ const dispatchChannelId = process.env.DISPATCH_CHANNEL_ID;
 exports.handler = (data, context, cb) => {
     if (verificationToken && data.token !== verificationToken) {
         // API call failed auth
-        return cb(null);
+        return cb(null, 'Not authorized');
     }
 
     if (data.type === 'url_verification') {
@@ -29,12 +31,9 @@ exports.handler = (data, context, cb) => {
         return cb(null, data.challenge);
     }
 
-    // Respond quickly
-    cb(null);
-
     if (!data.event.bot_id || data.type !== 'event_callback') {
         // API call is not an event triggered by a bot
-        return;
+        return cb(null, 'Not a bot event');;
     }
 
     // Check bot messages in public channels for trigger phrases,
@@ -51,12 +50,12 @@ exports.handler = (data, context, cb) => {
     }
 
     if (dispatchMessages.length === 0) {
-        return;
+        return cb(null, 'No event triggers matched');
     }
 
     https.get('https://slack.com/api/chat.postMessage?' + qs.stringify({
         token: accessToken,
         channel: dispatchChannelId,
         text: `${dispatchMessages.join(' ')} in <#${data.event.channel}>`
-    }));
+    }), () => cb(null, 'Sent event alert to Slack'));
 };
