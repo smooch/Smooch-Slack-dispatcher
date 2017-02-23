@@ -23,7 +23,7 @@ const dispatchChannelId = process.env.DISPATCH_CHANNEL_ID;
 exports.handler = (data, context, cb) => {
     if (verificationToken && data.token !== verificationToken) {
         // API call failed auth
-        return cb(null, 'Not authorized');
+        return cb(null, 'Bad token');
     }
 
     if (data.type === 'url_verification') {
