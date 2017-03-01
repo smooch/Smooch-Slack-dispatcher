@@ -3,7 +3,6 @@
 // Define trigger-alert pairs in `events`:
 // The trigger value can be a regular expression or string
 const events = JSON.parse(process.env.EVENTS);
-console.log('EVENTS:', typeof(events), events);
 
 const https = require('https');
 const qs = require('querystring');
@@ -38,8 +37,9 @@ exports.handler = (data, context, cb) => {
             if (RegExp(pair.trigger).test(attachment.pretext)) {
                 dispatchMessages.push({
                   alert: pair.alert,
-                  channel: pair.channel || defaultChannelId,
-                  context: attachment.pretext
+                  dispatchChannel: pair.channel || defaultChannelId,
+                  eventChannel: data.event.channel,
+                  context: attachment.pretext,
                 });
             }
         }
@@ -50,14 +50,12 @@ exports.handler = (data, context, cb) => {
     }
 
     const requests = dispatchMessages.map(data => {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             https.get('https://slack.com/api/chat.postMessage?' + qs.stringify({
                 token: accessToken,
-                channel: data.channel,
-                text: `${data.alert} in <#${data.channel}>\n>>>${data.context}`
-            }), response => {
-                response.on('end', resolve)
-            }).on('error', reject);
+                channel: data.dispatchChannel,
+                text: `${data.alert} in <#${data.eventChannel}>\n>>>${data.context}`
+            }), () => resolve());
         });
     })
 
