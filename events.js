@@ -2,7 +2,15 @@
 
 // Define trigger-alert pairs in `events`:
 // The trigger value can be a regular expression or string
-const events = JSON.parse(process.env.EVENTS);
+const events = [
+    {
+        trigger:'Hold on, I\'ll go get a human',
+        alert:'human agent alert'
+    }, {
+        trigger: /([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/,
+        alert: 'email in conversation alert'
+    }
+];
 
 const https = require('https');
 const qs = require('querystring');
