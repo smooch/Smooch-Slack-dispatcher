@@ -120,7 +120,9 @@ ACCESS_TOKEN="xoxp-18974539874-20938543-1023450954390534-8f26888a9aeeac27bd2f5ed
 DISPATCH_CHANNEL_ID="C46MX3VAQ"
 ```
 
-Restart your server so that the environment variables are available, and start a conversation between a user and your help desk on slack. If the user sends their email address as a message, you'll receive a notification in the dispatch channel. ![example dispatch message](images/example-dispatch.jpg)
+Restart your server so that the environment variables are available, and start a conversation between a user and your help desk on slack. If the user sends their email address as a message, you'll receive a notification in the dispatch channel.
+
+![example dispatch message](images/example-dispatch.jpg)
 
 To adjust the triggers and alerts, edit the `events` array in _events.js_.
 

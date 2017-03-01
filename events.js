@@ -2,23 +2,15 @@
 
 // Define trigger-alert pairs in `events`:
 // The trigger value can be a regular expression or string
-const events = [
-    {
-        trigger: 'Hold on, I\'ll go get a human',
-        alert: 'human agent alert'
-    },
-    {
-        trigger: /([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/,
-        alert: 'email in conversation alert'
-    }
-];
+const events = JSON.parse(process.env.EVENTS);
+console.log('EVENTS:', typeof(events), events);
 
 const https = require('https');
 const qs = require('querystring');
 
 const verificationToken = process.env.VERIFICATION_TOKEN;
 const accessToken = process.env.ACCESS_TOKEN;
-const dispatchChannelId = process.env.DISPATCH_CHANNEL_ID;
+const defaultChannelId = process.env.DISPATCH_CHANNEL_ID;
 
 exports.handler = (data, context, cb) => {
     if (verificationToken && data.token !== verificationToken) {
@@ -44,7 +36,11 @@ exports.handler = (data, context, cb) => {
     for (const attachment of data.event && data.event.attachments || []) {
         for (const pair of events) {
             if (RegExp(pair.trigger).test(attachment.pretext)) {
-                dispatchMessages.push(pair.alert);
+                dispatchMessages.push({
+                  alert: pair.alert,
+                  channel: pair.channel || defaultChannelId,
+                  context: attachment.pretext
+                });
             }
         }
     }
@@ -53,9 +49,17 @@ exports.handler = (data, context, cb) => {
         return cb(null, 'No event triggers matched');
     }
 
-    https.get('https://slack.com/api/chat.postMessage?' + qs.stringify({
-        token: accessToken,
-        channel: dispatchChannelId,
-        text: `${dispatchMessages.join(' ')} in <#${data.event.channel}>`
-    }), () => cb(null, 'Sent event alert to Slack'));
-};
+    const requests = dispatchMessages.map(data => {
+        return new Promise((resolve, reject) => {
+            https.get('https://slack.com/api/chat.postMessage?' + qs.stringify({
+                token: accessToken,
+                channel: data.channel,
+                text: `${data.alert} in <#${data.channel}>\n>>>${data.context}`
+            }), response => {
+                response.on('end', resolve)
+            }).on('error', reject);
+        });
+    })
+
+    Promise.all(requests).then(() => cb(null, 'Dispatched alerts'));
+}
