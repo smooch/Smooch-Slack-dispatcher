@@ -1,7 +1,11 @@
 'use strict';
 
 // Define trigger-alert pairs in `events`:
-// The trigger value can be a regular expression or string
+// The trigger value can be a regular expression or string.
+// Optionally, you can define a `channel` key to an event,
+// the value of which is a channel ID for the channel this alert should be
+// dispatched to. the bot must be invited to each channel where alerts are
+// to be dispatched.
 const events = [
     {
         trigger:'Hold on, I\'ll go get a human',

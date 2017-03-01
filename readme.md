@@ -86,6 +86,8 @@ ACCESS_TOKEN=""
 DISPATCH_CHANNEL_ID=""
 ```
 
+Lastly, navigate to _Bot Users_ and create a new bot user. You will be able to invite the bot user to channels to which you wish to dispatch events.
+
 ## Step 3 - authorize the app to your Slack team
 
 Now, restart your server so that the environment variables are available, and navigate down to _Oauth & Permissions_. Here we're going to add our service URL at the /redirect route.
@@ -124,7 +126,21 @@ Restart your server so that the environment variables are available, and start a
 
 ![example dispatch message](images/example-dispatch.jpg)
 
-To adjust the triggers and alerts, edit the `events` array in _events.js_.
+## Step 4 - configure your own events
+
+At the top of the _events.js_ file, there's an `events` array filled with JavaScript objects. The objects are structured like this:
+
+```javascript
+{
+    trigger: '' // a regular expression or substring that triggers an alert
+    alert: '' // the text of the alert (useful to set as notification text)
+    channel: '' // an optional channel ID. If not specified, will use DISPATCH_CHANNEL_ID
+}
+```
+
+You can add any number of events to the array.
+
+To set an optional channel to post  you need to find the IDs associated with your Slack channels. Use Slack's list.methods API tester, located [here](https://api.slack.com/methods/channels.list/test).
 
 ## Deploy Option 1 - deploy to Heroku:
 
