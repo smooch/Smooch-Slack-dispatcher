@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "start": "node index"
+    "start": "node index"
   },
   "author": "spasiu",
   "license": "ISC",
   "dependencies": {
     "body-parser": "1.16.1",
     "dotenv": "4.0.0",
+    "ejs": "2.5.6",
     "express": "4.14.1"
   }
 }
